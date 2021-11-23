@@ -35,16 +35,24 @@
  * @return {number[]}
  */
 var plusOne = function (digits) {
-  let str = [];
-  for (let i = 0; i < digits.length; i++) {
-    if (str === " " && digits[i] == 0) {
-      continue;
-    } else {
-      str.push(s[i]);
+  // let str = [];
+  let str = '';
+  if (digits.length === 1) {
+    str = digits[0];
+  } else {
+    for (let i = 0; i < digits.length; i++) {
+      if (str.length === 0 && digits[i] == 0) {
+        continue;
+      } else {
+        // str.push(digits[i]);
+        str += digits[i];
+      }
     }
   }
-  str[str.length - 1] = str[str.length - 1] + 1;
-  return str;
+
+  console.log('str', [...str]);
+  // return [...String(Number(str.join('')) + 1)].map((item) => Number(item));
 };
 
-console.log(plusOne([0, 1, 0, 2, 3]));
+console.log(plusOne([6, 1, 4, 5, 3, 9, 0, 1, 9, 5, 1, 8, 6, 7, 0, 5, 5, 4, 3]));
+// console.log(plusOne([9]));
