@@ -40,6 +40,19 @@ pos 为 -1 或者链表中的一个 有效索引 。
 */
 
 /**
+ * 解法一：
+ *  使用 JS 新的数据结构  Map （对标的是数组 里面的元素永远不会重复）
+ *    如果是环形链表 那么这个链表在遍历的过程中 它的自身是一定会重复的
+ *    所以就是利用这一点  每次遍历就将除了当前元素的自身放进 Map 如果有重复 就说明是一个环形链表！！
+ *
+ * 解法二：
+ *  使用类似快慢指针法，
+ *    类似于我们在学校的环形跑道上跑步 ，一个人速度快 一个人速度慢 总有一个时刻两个人会再次相遇
+ *    这里的逻辑也是这样 一个一次走两格 一个一次走一格 不断遍历
+ *    如果有两个指针相同的时候 说明是环形的链表 否则不是环形链表
+ */
+
+/**
  * Definition for singly-linked list.
  * function ListNode(val) {
  *     this.val = val;
@@ -51,12 +64,23 @@ pos 为 -1 或者链表中的一个 有效索引 。
  * @param {ListNode} head
  * @return {boolean}
  */
+// var hasCycle = function (head) {
+//   let map = new Map();
+//   while (head) {
+//     if (map.has(head)) return true; //如果当前节点在map中存在就说明有环
+//     map.set(head, true); //否则就加入map
+//     head = head.next; //迭代节点
+//   }
+//   return false; //循环完成发现没有重复节点，说明没环
+// };
+
 var hasCycle = function (head) {
-  let map = new Map();
-  while (head) {
-    if (map.has(head)) return true; //如果当前节点在map中存在就说明有环
-    map.set(head, true); //否则就加入map
-    head = head.next; //迭代节点
+  let fast = head,
+    slow = head;
+  while (fast && fast.next) {
+    fast = fast.next.next;
+    slow = slow.next;
+    if (fast === slow) return true;
   }
-  return false; //循环完成发现没有重复节点，说明没环
+  return false;
 };
